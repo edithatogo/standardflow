@@ -6,18 +6,11 @@ from .consort import ConsortDiagram
 from .strobe import StrobeDiagram
 from .checklist import Checklist
 
-def main():
+def generate_artifact(input_path, output_path):
     """
-    Main function to generate a diagram or checklist from a JSON file.
+    Generates a diagram or checklist from a JSON file.
     """
-    parser = argparse.ArgumentParser(description='Generate a diagram or checklist from a JSON file.')
-    parser.add_argument('input', type=str, help='Path to the input JSON file.')
-    parser.add_argument('-o', '--output', type=str, default='output',
-                        help='Output file name. The format is determined by the file extension '
-                             '(e.g., .png, .svg, .pdf, .tiff, .eps, .md).')
-    args = parser.parse_args()
-
-    with open(args.input, 'r') as f:
+    with open(input_path, 'r') as f:
         data = json.load(f)
 
     if 'diagram_type' in data:
@@ -40,7 +33,7 @@ def main():
         validate(instance=data, schema=schema)
 
         diagram = DiagramClass(data)
-        diagram.generate(args.output)
+        diagram.generate(output_path)
 
     elif 'checklist_type' in data:
         checklist_type = data['checklist_type']
@@ -53,10 +46,24 @@ def main():
         validate(instance=data, schema=schema)
 
         checklist = ChecklistClass(data)
-        checklist.generate(args.output)
+        checklist.generate(output_path)
 
     else:
         raise ValueError("The input JSON file must have either a 'diagram_type' or a 'checklist_type' field.")
+
+def main():
+    """
+    Main function to generate a diagram or checklist from a JSON file.
+    """
+    parser = argparse.ArgumentParser(description='Generate a diagram or checklist from a JSON file.')
+    parser.add_argument('input', type=str, help='Path to the input JSON file.')
+    parser.add_argument('-o', '--output', type=str, default='output',
+                        help='Output file name. The format is determined by the file extension '
+                             '(e.g., .png, .svg, .pdf, .tiff, .eps, .md).')
+    args = parser.parse_args()
+
+    generate_artifact(args.input, args.output)
+
 
 if __name__ == '__main__':
     main()
