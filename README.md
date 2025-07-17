@@ -88,6 +88,12 @@ This will produce the following diagram:
 
 [Jupyter Notebook Example](examples/notebooks/consort_example.ipynb)
 
+### CONSORT 2010 Flow Diagram for Cluster-Randomised Trials
+
+![CONSORT Cluster Example](examples/images/consort_cluster_example.png)
+
+[Jupyter Notebook Example](examples/notebooks/consort_cluster_diagram_example.ipynb)
+
 ### STROBE 2007 Flow Diagram
 
 ![STROBE Example](examples/images/strobe_example.png)

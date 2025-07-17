@@ -37,6 +37,13 @@ class ConsortDiagram:
 
     def _build_graph(self):
         """Builds the graph structure."""
+        if self.data['diagram_type'] == 'CONSORT':
+            self._build_consort_graph()
+        elif self.data['diagram_type'] == 'CONSORT_CLUSTER':
+            self._build_cluster_graph()
+
+    def _build_consort_graph(self):
+        """Builds the graph for the standard CONSORT 2010 flow diagram."""
         self.dot.node('A', f'Assessed for eligibility (n={self.data["assessed_for_eligibility"]})')
         self.dot.node('B', f'Excluded (n={self.data["excluded"]})\n' +
                            '\n'.join(self.data.get("reasons_for_exclusion", [])))
@@ -62,6 +69,29 @@ class ConsortDiagram:
         self.dot.edge('E', 'H')
         self.dot.edge('E', 'I')
         self.dot.edge('I', 'J')
+
+    def _build_cluster_graph(self):
+        """Builds the graph for the CONSORT 2010 flow diagram for cluster-randomised trials."""
+        self.dot.node('A', f'Assessed for eligibility (n={self.data["clusters_assessed_for_eligibility"]} clusters)')
+        self.dot.node('B', f'Excluded (n={self.data["clusters_excluded"]} clusters)\n' +
+                           '\n'.join(self.data.get("reasons_for_cluster_exclusion", [])))
+        self.dot.node('C', f'Randomized (n={self.data["clusters_randomized"]} clusters)')
+        self.dot.node('D', f'Allocated to intervention (n={self.data["clusters_allocated_to_intervention"]} clusters, n={self.data["individuals_in_clusters_allocated_to_intervention"]} individuals)')
+        self.dot.node('E', f'Lost to follow-up (n={self.data["clusters_lost_to_follow_up"]} clusters, n={self.data["individuals_lost_to_follow_up"]} individuals)\n' +
+                           '\n'.join(self.data.get("reasons_for_cluster_loss_to_follow_up", [])))
+        self.dot.node('F', f'Discontinued intervention (n={self.data["clusters_discontinued_intervention"]} clusters, n={self.data["individuals_discontinued_intervention"]} individuals)\n' +
+                           '\n'.join(self.data.get("reasons_for_cluster_discontinuation", [])))
+        self.dot.node('G', f'Analysed (n={self.data["clusters_analysed"]} clusters, n={self.data["individuals_analysed"]} individuals)')
+        self.dot.node('H', f'Excluded from analysis (n={self.data["clusters_excluded_from_analysis"]} clusters, n={self.data["individuals_excluded_from_analysis"]} individuals)\n' +
+                           '\n'.join(self.data.get("reasons_for_cluster_exclusion_from_analysis", [])))
+
+        self.dot.edge('A', 'C')
+        self.dot.edge('A', 'B')
+        self.dot.edge('C', 'D')
+        self.dot.edge('D', 'E')
+        self.dot.edge('D', 'F')
+        self.dot.edge('D', 'G')
+        self.dot.edge('G', 'H')
 
     def generate(self, output_filename="consort.png"):
         """
