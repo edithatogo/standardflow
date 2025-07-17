@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://www.equator-network.org/schemas/consort_schema.json",
+    "title": "CONSORT 2010 flow diagram schema",
+    "description": "A schema for generating CONSORT 2010 flow diagrams.",
+    "type": "object",
+    "properties": {
+        "diagram_type": {
+            "description": "The type of diagram to generate.",
+            "type": "string",
+            "enum": ["CONSORT"]
+        },
+        "assessed_for_eligibility": {
+            "description": "Number of participants assessed for eligibility.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "excluded": {
+            "description": "Number of participants excluded.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_exclusion": {
+            "description": "Reasons for exclusion.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "randomized": {
+            "description": "Number of participants randomized.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "allocated_to_intervention": {
+            "description": "Number of participants allocated to intervention.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "received_allocated_intervention": {
+            "description": "Number of participants who received allocated intervention.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "did_not_receive_allocated_intervention": {
+            "description": "Number of participants who did not receive allocated intervention.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_not_receiving_intervention": {
+            "description": "Reasons for not receiving intervention.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "lost_to_follow_up": {
+            "description": "Number of participants lost to follow-up.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_loss_to_follow_up": {
+            "description": "Reasons for loss to follow-up.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "discontinued_intervention": {
+            "description": "Number of participants who discontinued intervention.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_discontinuing_intervention": {
+            "description": "Reasons for discontinuing intervention.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "analysed": {
+            "description": "Number of participants analysed.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "excluded_from_analysis": {
+            "description": "Number of participants excluded from analysis.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_exclusion_from_analysis": {
+            "description": "Reasons for exclusion from analysis.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "diagram_type",
+        "assessed_for_eligibility",
+        "excluded",
+        "randomized",
+        "allocated_to_intervention",
+        "received_allocated_intervention",
+        "did_not_receive_allocated_intervention",
+        "lost_to_follow_up",
+        "discontinued_intervention",
+        "analysed",
+        "excluded_from_analysis"
+    ]
+}
