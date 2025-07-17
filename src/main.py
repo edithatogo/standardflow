@@ -3,6 +3,7 @@ import argparse
 from jsonschema import validate
 from .prisma import PrismaDiagram
 from .consort import ConsortDiagram
+from .strobe import StrobeDiagram
 
 def main():
     """
@@ -29,6 +30,9 @@ def main():
     elif diagram_type == 'CONSORT':
         schema_path = 'schemas/consort_schema.json'
         DiagramClass = ConsortDiagram
+    elif diagram_type == 'STROBE':
+        schema_path = 'schemas/strobe_schema.json'
+        DiagramClass = StrobeDiagram
     else:
         raise ValueError(f"Unknown diagram type: {diagram_type}")
 

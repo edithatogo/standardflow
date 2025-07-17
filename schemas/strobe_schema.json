@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://www.equator-network.org/schemas/strobe_schema.json",
+    "title": "STROBE 2007 flow diagram schema",
+    "description": "A schema for generating STROBE 2007 flow diagrams.",
+    "type": "object",
+    "properties": {
+        "diagram_type": {
+            "description": "The type of diagram to generate.",
+            "type": "string",
+            "enum": ["STROBE"]
+        },
+        "potentially_eligible": {
+            "description": "Number of potentially eligible participants.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "assessed_for_eligibility": {
+            "description": "Number of participants assessed for eligibility.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "excluded_before_study": {
+            "description": "Number of participants excluded before the study.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_exclusion_before_study": {
+            "description": "Reasons for exclusion before the study.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "included_in_study": {
+            "description": "Number of participants included in the study.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "lost_to_follow_up": {
+            "description": "Number of participants lost to follow-up.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_loss_to_follow_up": {
+            "description": "Reasons for loss to follow-up.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "incomplete_data": {
+            "description": "Number of participants with incomplete data.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "reasons_for_incomplete_data": {
+            "description": "Reasons for incomplete data.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "analysed": {
+            "description": "Number of participants analysed.",
+            "type": "integer",
+            "minimum": 0
+        }
+    },
+    "required": [
+        "diagram_type",
+        "potentially_eligible",
+        "assessed_for_eligibility",
+        "excluded_before_study",
+        "included_in_study",
+        "lost_to_follow_up",
+        "incomplete_data",
+        "analysed"
+    ]
+}
