@@ -1,18 +1,19 @@
-# Equator Network Resource Library
+# Research Artifacts Library
 
-This project aims to re-create, systematize, and expand upon the resources available on the [Equator Network website](https://www.equator-network.org/), with a focus on diagrams (e.g., PRISMA) and checklists. The ultimate goal is to create an open-source, user-friendly, and highly reproducible system for generating research artifacts suitable for academic publishing and future-proofing.
+This project provides a library for generating research artifacts, such as diagrams and checklists, in a systematic and reproducible way. The goal is to create an open-source, user-friendly, and highly reproducible system for generating research artifacts suitable for academic publishing and future-proofing.
 
-## Supported Diagrams
+## Supported Artifacts
 
 *   [PRISMA 2020 Flow Diagram](#prisma-2020-flow-diagram)
 *   [CONSORT 2010 Flow Diagram](#consort-2010-flow-diagram)
 *   [STROBE 2007 Flow Diagram](#strobe-2007-flow-diagram)
+*   [CONSORT 2010 Checklist](#consort-2010-checklist)
 
 ## Getting Started
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/your-username/equator-network-resources.git
+    git clone https://github.com/your-username/research-artifacts-library.git
     ```
 2.  Install the required dependencies:
     ```bash
@@ -25,9 +26,9 @@ This project aims to re-create, systematize, and expand upon the resources avail
 
 3.  Create a JSON file with your data. See the `data` directory for examples.
 
-4.  Run the script to generate a diagram:
+4.  Run the script to generate an artifact:
     ```bash
-    python -m src data/your_data.json -o your_diagram.png
+    python -m src.cli generate data/your_data.json -o your_artifact.png
     ```
     You can change the output format by changing the file extension in the output filename.
 
@@ -75,6 +76,12 @@ This will produce the following diagram:
 
 [Jupyter Notebook Example](examples/notebooks/prisma_example.ipynb)
 
+### PRISMA 2020 Flow Diagram for Updated Reviews
+
+![PRISMA 2020 Updated Example](examples/images/prisma_2020_updated_example.png)
+
+[Jupyter Notebook Example](examples/notebooks/prisma_2020_updated_diagram_example.ipynb)
+
 ### CONSORT 2010 Flow Diagram
 
 ![CONSORT Example](examples/images/consort_example.png)
@@ -86,6 +93,10 @@ This will produce the following diagram:
 ![STROBE Example](examples/images/strobe_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/strobe_example.ipynb)
+
+### CONSORT 2010 Checklist
+
+[Jupyter Notebook Example](examples/notebooks/consort_checklist_example.ipynb)
 
 ## Contributing
 

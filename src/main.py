@@ -15,7 +15,7 @@ def generate_artifact(input_path, output_path):
 
     if 'diagram_type' in data:
         diagram_type = data['diagram_type']
-        if diagram_type == 'PRISMA':
+        if diagram_type == 'PRISMA' or diagram_type == 'PRISMA_2020_UPDATED':
             schema_path = 'schemas/prisma_schema.json'
             DiagramClass = PrismaDiagram
         elif diagram_type == 'CONSORT':
