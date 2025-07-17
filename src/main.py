@@ -4,45 +4,59 @@ from jsonschema import validate
 from .prisma import PrismaDiagram
 from .consort import ConsortDiagram
 from .strobe import StrobeDiagram
+from .checklist import Checklist
 
 def main():
     """
-    Main function to generate a diagram from a JSON file.
+    Main function to generate a diagram or checklist from a JSON file.
     """
-    parser = argparse.ArgumentParser(description='Generate a diagram from a JSON file.')
+    parser = argparse.ArgumentParser(description='Generate a diagram or checklist from a JSON file.')
     parser.add_argument('input', type=str, help='Path to the input JSON file.')
-    parser.add_argument('-o', '--output', type=str, default='diagram.png',
+    parser.add_argument('-o', '--output', type=str, default='output',
                         help='Output file name. The format is determined by the file extension '
-                             '(e.g., .png, .svg, .pdf, .tiff, .eps).')
+                             '(e.g., .png, .svg, .pdf, .tiff, .eps, .md).')
     args = parser.parse_args()
 
     with open(args.input, 'r') as f:
         data = json.load(f)
 
-    if 'diagram_type' not in data:
-        raise ValueError("The input JSON file must have a 'diagram_type' field.")
+    if 'diagram_type' in data:
+        diagram_type = data['diagram_type']
+        if diagram_type == 'PRISMA':
+            schema_path = 'schemas/prisma_schema.json'
+            DiagramClass = PrismaDiagram
+        elif diagram_type == 'CONSORT':
+            schema_path = 'schemas/consort_schema.json'
+            DiagramClass = ConsortDiagram
+        elif diagram_type == 'STROBE':
+            schema_path = 'schemas/strobe_schema.json'
+            DiagramClass = StrobeDiagram
+        else:
+            raise ValueError(f"Unknown diagram type: {diagram_type}")
 
-    diagram_type = data['diagram_type']
+        with open(schema_path, 'r') as f:
+            schema = json.load(f)
 
-    if diagram_type == 'PRISMA':
-        schema_path = 'schemas/prisma_schema.json'
-        DiagramClass = PrismaDiagram
-    elif diagram_type == 'CONSORT':
-        schema_path = 'schemas/consort_schema.json'
-        DiagramClass = ConsortDiagram
-    elif diagram_type == 'STROBE':
-        schema_path = 'schemas/strobe_schema.json'
-        DiagramClass = StrobeDiagram
+        validate(instance=data, schema=schema)
+
+        diagram = DiagramClass(data)
+        diagram.generate(args.output)
+
+    elif 'checklist_type' in data:
+        checklist_type = data['checklist_type']
+        schema_path = 'schemas/checklist_schema.json'
+        ChecklistClass = Checklist
+
+        with open(schema_path, 'r') as f:
+            schema = json.load(f)
+
+        validate(instance=data, schema=schema)
+
+        checklist = ChecklistClass(data)
+        checklist.generate(args.output)
+
     else:
-        raise ValueError(f"Unknown diagram type: {diagram_type}")
-
-    with open(schema_path, 'r') as f:
-        schema = json.load(f)
-
-    validate(instance=data, schema=schema)
-
-    diagram = DiagramClass(data)
-    diagram.generate(args.output)
+        raise ValueError("The input JSON file must have either a 'diagram_type' or a 'checklist_type' field.")
 
 if __name__ == '__main__':
     main()

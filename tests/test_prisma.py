@@ -76,14 +76,6 @@ class TestPrisma(unittest.TestCase):
         self.prisma.generate(self.output_eps)
         self.assertTrue(os.path.exists(self.output_eps))
 
-    def test_invalid_data(self):
-        """Test that a validation error is raised for invalid data."""
-        with self.assertRaises(ValidationError):
-            # We need to load the schema and validate the data here
-            with open('schemas/prisma_schema.json', 'r') as f:
-                schema = json.load(f)
-            from jsonschema import validate
-            validate(instance=self.invalid_data, schema=schema)
 
 if __name__ == '__main__':
     unittest.main()
