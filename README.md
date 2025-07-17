@@ -114,6 +114,10 @@ This will produce the following diagram:
 
 [Jupyter Notebook Example](examples/notebooks/strobe_cohort_checklist_example.ipynb)
 
+### STROBE 2007 Checklist for Case-Control Studies
+
+[Jupyter Notebook Example](examples/notebooks/strobe_case_control_checklist_example.ipynb)
+
 ## Contributing
 
 Contributions are welcome! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more information.
