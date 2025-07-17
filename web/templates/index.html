@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Research Artifacts Library</title>
+</head>
+<body>
+    <h1>Research Artifacts Library</h1>
+    <form method="POST">
+        <label for="diagram_type">Diagram Type:</label>
+        <select name="diagram_type" id="diagram_type">
+            <option value="PRISMA">PRISMA</option>
+            <option value="PRISMA_2020_UPDATED">PRISMA 2020 (Updated)</option>
+            <option value="CONSORT">CONSORT</option>
+            <option value="CONSORT_CLUSTER">CONSORT (Cluster)</option>
+            <option value="STROBE">STROBE</option>
+            <option value="STROBE_COHORT">STROBE (Cohort)</option>
+        </select>
+        <br>
+        <label for="json_data">JSON Data:</label>
+        <br>
+        <textarea name="json_data" id="json_data" rows="20" cols="80"></textarea>
+        <br>
+        <input type="submit" value="Generate Diagram">
+    </form>
+</body>
+</html>

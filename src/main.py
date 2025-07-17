@@ -1,10 +1,10 @@
 import json
 import argparse
 from jsonschema import validate
-from .prisma import PrismaDiagram
-from .consort import ConsortDiagram
-from .strobe import StrobeDiagram
-from .checklist import Checklist
+from prisma import PrismaDiagram
+from consort import ConsortDiagram
+from strobe import StrobeDiagram
+from checklist import Checklist
 
 def generate_artifact(input_path, output_path):
     """
