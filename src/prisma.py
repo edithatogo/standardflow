@@ -3,6 +3,7 @@ import json
 import argparse
 import os
 import subprocess
+from jsonschema import validate
 
 class PrismaDiagram:
     """
@@ -71,10 +72,17 @@ def main():
     parser.add_argument('-o', '--output', type=str, default='prisma.png',
                         help='Output file name. The format is determined by the file extension '
                              '(e.g., .png, .svg, .pdf, .tiff, .eps).')
+    parser.add_argument('--schema', type=str, default='schemas/prisma_schema.json',
+                        help='Path to the JSON schema file.')
     args = parser.parse_args()
 
     with open(args.input, 'r') as f:
         data = json.load(f)
+
+    with open(args.schema, 'r') as f:
+        schema = json.load(f)
+
+    validate(instance=data, schema=schema)
 
     prisma = PrismaDiagram(data)
     prisma.generate(args.output)

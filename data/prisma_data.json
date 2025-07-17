@@ -1,4 +1,5 @@
 {
+    "diagram_type": "PRISMA",
     "records_identified": 1000,
     "records_after_duplicates_removed": 800,
     "records_screened": 800,

@@ -7,13 +7,25 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 from prisma import PrismaDiagram
+from jsonschema import ValidationError
 
 class TestPrisma(unittest.TestCase):
 
     def setUp(self):
         """Set up test data and output file paths."""
-        self.data = {
+        self.valid_data = {
+            "diagram_type": "PRISMA",
             "records_identified": 1000,
+            "records_after_duplicates_removed": 800,
+            "records_screened": 800,
+            "records_excluded": 200,
+            "full_text_articles_assessed": 600,
+            "full_text_articles_excluded": 300,
+            "studies_included": 300
+        }
+        self.invalid_data = {
+            "diagram_type": "PRISMA",
+            "records_identified": "invalid_data",
             "records_after_duplicates_removed": 800,
             "records_screened": 800,
             "records_excluded": 200,
@@ -26,7 +38,7 @@ class TestPrisma(unittest.TestCase):
         self.output_pdf = "test_prisma.pdf"
         self.output_tiff = "test_prisma.tiff"
         self.output_eps = "test_prisma.eps"
-        self.prisma = PrismaDiagram(self.data)
+        self.prisma = PrismaDiagram(self.valid_data)
 
     def tearDown(self):
         """Remove generated files after each test."""
@@ -63,6 +75,15 @@ class TestPrisma(unittest.TestCase):
         """Test that the PRISMA diagram is generated as an EPS file."""
         self.prisma.generate(self.output_eps)
         self.assertTrue(os.path.exists(self.output_eps))
+
+    def test_invalid_data(self):
+        """Test that a validation error is raised for invalid data."""
+        with self.assertRaises(ValidationError):
+            # We need to load the schema and validate the data here
+            with open('schemas/prisma_schema.json', 'r') as f:
+                schema = json.load(f)
+            from jsonschema import validate
+            validate(instance=self.invalid_data, schema=schema)
 
 if __name__ == '__main__':
     unittest.main()
