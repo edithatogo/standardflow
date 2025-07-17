@@ -2,19 +2,13 @@
 
 This project aims to re-create, systematize, and expand upon the resources available on the [Equator Network website](https://www.equator-network.org/), with a focus on diagrams (e.g., PRISMA) and checklists. The ultimate goal is to create an open-source, user-friendly, and highly reproducible system for generating research artifacts suitable for academic publishing and future-proofing.
 
-## Phase 1: Core Diagram Generation (Python First)
+## Supported Diagrams
 
-This is the initial phase of the project, focusing on generating PRISMA diagrams using Python.
+*   [PRISMA 2020 Flow Diagram](#prisma-2020-flow-diagram)
+*   [CONSORT 2010 Flow Diagram](#consort-2010-flow-diagram)
+*   [STROBE 2007 Flow Diagram](#strobe-2007-flow-diagram)
 
-### Current Features
-
-*   Generate PRISMA 2020 flow diagrams from a JSON input file.
-*   Supported output formats: PNG, SVG, PDF, TIFF, and EPS.
-*   A Python script (`src/prisma.py`) to generate diagrams from the command line.
-*   A Jupyter notebook (`notebooks/PRISMA_Diagram_Generator.ipynb`) for interactive diagram generation.
-*   A comprehensive test suite to ensure the reliability of the diagram generation.
-
-### Getting Started
+## Getting Started
 
 1.  Clone the repository:
     ```bash
@@ -29,26 +23,33 @@ This is the initial phase of the project, focusing on generating PRISMA diagrams
     sudo apt-get update && sudo apt-get install -y graphviz imagemagick
     ```
 
-3.  Create a JSON file with your PRISMA data (e.g., `data/my_prisma_data.json`):
-    ```json
-    {
-        "records_identified": 1000,
-        "records_after_duplicates_removed": 800,
-        "records_screened": 800,
-        "records_excluded": 200,
-        "full_text_articles_assessed": 600,
-        "full_text_articles_excluded": 300,
-        "studies_included": 300
-    }
-    ```
+3.  Create a JSON file with your data. See the `data` directory for examples.
 
 4.  Run the script to generate a diagram:
     ```bash
-    python src/prisma.py data/my_prisma_data.json -o my_prisma_diagram.png
+    python -m src data/your_data.json -o your_diagram.png
     ```
     You can change the output format by changing the file extension in the output filename.
 
-5.  Explore the Jupyter notebook in the `notebooks` directory for an interactive example.
+## Examples
+
+### PRISMA 2020 Flow Diagram
+
+![PRISMA Example](examples/images/prisma_example.png)
+
+[Jupyter Notebook Example](examples/notebooks/prisma_example.ipynb)
+
+### CONSORT 2010 Flow Diagram
+
+![CONSORT Example](examples/images/consort_example.png)
+
+[Jupyter Notebook Example](examples/notebooks/consort_example.ipynb)
+
+### STROBE 2007 Flow Diagram
+
+![STROBE Example](examples/images/strobe_example.png)
+
+[Jupyter Notebook Example](examples/notebooks/strobe_example.ipynb)
 
 ## Contributing
 
