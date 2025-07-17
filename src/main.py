@@ -21,7 +21,7 @@ def generate_artifact(input_path, output_path):
         elif diagram_type == 'CONSORT' or diagram_type == 'CONSORT_CLUSTER':
             schema_path = 'schemas/consort_schema.json'
             DiagramClass = ConsortDiagram
-        elif diagram_type == 'STROBE':
+        elif diagram_type == 'STROBE' or diagram_type == 'STROBE_COHORT':
             schema_path = 'schemas/strobe_schema.json'
             DiagramClass = StrobeDiagram
         else:

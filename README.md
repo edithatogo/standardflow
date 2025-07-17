@@ -100,6 +100,12 @@ This will produce the following diagram:
 
 [Jupyter Notebook Example](examples/notebooks/strobe_example.ipynb)
 
+### STROBE 2007 Flow Diagram for Cohort Studies
+
+![STROBE Cohort Example](examples/images/strobe_cohort_example.png)
+
+[Jupyter Notebook Example](examples/notebooks/strobe_cohort_diagram_example.ipynb)
+
 ### CONSORT 2010 Checklist
 
 [Jupyter Notebook Example](examples/notebooks/consort_checklist_example.ipynb)
