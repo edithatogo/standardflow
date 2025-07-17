@@ -31,6 +31,42 @@ This project aims to re-create, systematize, and expand upon the resources avail
     ```
     You can change the output format by changing the file extension in the output filename.
 
+## Styling
+
+You can customize the appearance of the diagrams by adding a `style` object to your JSON data file. The `style` object can contain the following properties:
+
+*   `box_color`: The background color of the boxes.
+*   `font_color`: The color of the text in the boxes.
+*   `font_name`: The name of the font to use for the text.
+*   `font_size`: The size of the font to use for the text.
+*   `arrow_color`: The color of the arrows.
+
+Here is an example of a JSON file with styling information:
+
+```json
+{
+    "diagram_type": "PRISMA",
+    "records_identified": 1000,
+    "records_after_duplicates_removed": 800,
+    "records_screened": 800,
+    "records_excluded": 200,
+    "full_text_articles_assessed": 600,
+    "full_text_articles_excluded": 300,
+    "studies_included": 300,
+    "style": {
+        "box_color": "lightblue",
+        "font_color": "darkblue",
+        "font_name": "Arial",
+        "font_size": "12",
+        "arrow_color": "darkblue"
+    }
+}
+```
+
+This will produce the following diagram:
+
+![Styled PRISMA Example](examples/images/styled_prisma.png)
+
 ## Examples
 
 ### PRISMA 2020 Flow Diagram

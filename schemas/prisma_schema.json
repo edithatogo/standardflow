@@ -55,5 +55,37 @@
         "full_text_articles_assessed",
         "full_text_articles_excluded",
         "studies_included"
-    ]
+    ],
+    "definitions": {
+        "style": {
+            "type": "object",
+            "properties": {
+                "box_color": {
+                    "type": "string",
+                    "description": "The background color of the boxes."
+                },
+                "font_color": {
+                    "type": "string",
+                    "description": "The color of the text in the boxes."
+                },
+                "font_name": {
+                    "type": "string",
+                    "description": "The name of the font to use for the text."
+                },
+                "font_size": {
+                    "type": "string",
+                    "description": "The size of the font to use for the text."
+                },
+                "arrow_color": {
+                    "type": "string",
+                    "description": "The color of the arrows."
+                }
+            }
+        }
+    },
+    "properties": {
+        "style": {
+            "$ref": "#/definitions/style"
+        }
+    }
 }

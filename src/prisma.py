@@ -20,6 +20,24 @@ class PrismaDiagram:
         self.dot = graphviz.Digraph(comment='PRISMA 2020 Flow Diagram')
         self.dot.attr('node', shape='box')
 
+    def _apply_styles(self):
+        """Applies the styles from the data to the graph."""
+        if 'style' in self.data:
+            style = self.data['style']
+            if 'box_color' in style:
+                self.dot.attr('node', style='filled', fillcolor=style['box_color'])
+            if 'font_color' in style:
+                self.dot.attr('node', fontcolor=style['font_color'])
+                self.dot.attr('edge', fontcolor=style['font_color'])
+            if 'font_name' in style:
+                self.dot.attr('node', fontname=style['font_name'])
+                self.dot.attr('edge', fontname=style['font_name'])
+            if 'font_size' in style:
+                self.dot.attr('node', fontsize=style['font_size'])
+                self.dot.attr('edge', fontsize=style['font_size'])
+            if 'arrow_color' in style:
+                self.dot.attr('edge', color=style['arrow_color'])
+
     def _build_graph(self):
         """Builds the graph structure."""
         self.dot.node('A', f'Records identified through database searching\n(n = {self.data["records_identified"]})')
@@ -46,6 +64,7 @@ class PrismaDiagram:
         Args:
             output_filename (str): The name of the output file.
         """
+        self._apply_styles()
         self._build_graph()
 
         file_format = os.path.splitext(output_filename)[1][1:]
