@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Research Artifacts Library</title>
+</head>
+<body>
+    <h1>Research Artifacts Library</h1>
+    <form method="POST">
+        <label for="checklist_type">Checklist Type:</label>
+        <select name="checklist_type" id="checklist_type">
+            <option value="CONSORT">CONSORT</option>
+            <option value="STROBE_COHORT">STROBE (Cohort)</option>
+            <option value="STROBE_CASE_CONTROL">STROBE (Case-Control)</option>
+            <option value="STROBE_CROSS_SECTIONAL">STROBE (Cross-Sectional)</option>
+        </select>
+        <br>
+        <label for="json_data">JSON Data:</label>
+        <br>
+        <textarea name="json_data" id="json_data" rows="20" cols="80"></textarea>
+        <br>
+        <input type="submit" value="Generate Checklist">
+    </form>
+</body>
+</html>

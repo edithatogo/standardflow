@@ -7,7 +7,10 @@ import os
 import json
 import io
 
+from markdown_filter import markdown_filter
+
 app = Flask(__name__)
+app.jinja_env.filters['markdown'] = markdown_filter
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -27,6 +30,27 @@ def index():
         return send_file('diagram.png', mimetype='image/png')
 
     return render_template('index.html')
+
+@app.route('/checklist', methods=['GET', 'POST'])
+def checklist():
+    if request.method == 'POST':
+        checklist_type = request.form['checklist_type']
+        json_data = request.form['json_data']
+
+        # Create a temporary file to store the JSON data
+        with open('temp.json', 'w') as f:
+            f.write(json_data)
+
+        # Generate the checklist
+        from checklist import Checklist
+        with open('temp.json', 'r') as f:
+            data = json.load(f)
+        checklist = Checklist(data)
+        sections = checklist.to_markdown_by_section()
+
+        return render_template('checklist_viewer.html', sections=sections)
+
+    return render_template('checklist.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -13,44 +13,48 @@ class Checklist:
         """
         self.data = data
 
-    def to_markdown(self):
+    def to_markdown_by_section(self):
         """
-        Generates a Markdown representation of the checklist.
+        Generates a dictionary of Markdown representations of the checklist, with one entry per section.
         """
-        markdown = f"# {self.data['title']}\n\n"
-
-        current_section = None
+        sections = {}
         for item in self.data['items']:
-            if item['section'] != current_section:
-                current_section = item['section']
-                markdown += f"## {current_section}\n\n"
+            section = item['section']
+            if section not in sections:
+                sections[section] = ""
 
-            markdown += f"**{item['id']}**: {item['description']}\n\n"
+            sections[section] += f"**{item['id']}**: {item['description']}\n\n"
 
             if item['type'] == 'boolean':
-                markdown += f"[ ] Yes\n"
-                markdown += f"[ ] No\n"
+                sections[section] += f"[ ] Yes\n"
+                sections[section] += f"[ ] No\n"
             elif item['type'] == 'string':
-                markdown += f"Response: ________________\n"
+                sections[section] += f"Response: ________________\n"
             elif item['type'] == 'integer':
-                markdown += f"Response: ________________\n"
+                sections[section] += f"Response: ________________\n"
             elif item['type'] == 'multiple_choice':
                 for option in item['options']:
-                    markdown += f"[ ] {option}\n"
+                    sections[section] += f"[ ] {option}\n"
 
-            markdown += "\n"
+            sections[section] += "\n"
 
-        return markdown
+        return sections
 
-    def generate(self, output_filename="checklist.md"):
+    def generate(self, output_directory="checklist"):
         """
-        Generates the checklist and saves it to a file.
+        Generates the checklist and saves it to a directory of files.
 
         Args:
-            output_filename (str): The name of the output file.
+            output_directory (str): The name of the output directory.
         """
-        markdown = self.to_markdown()
-        with open(output_filename, 'w') as f:
-            f.write(markdown)
+        import os
+        if not os.path.exists(output_directory):
+            os.makedirs(output_directory)
 
-        print(f"Checklist saved as {output_filename}")
+        sections = self.to_markdown_by_section()
+        for section, markdown in sections.items():
+            filename = os.path.join(output_directory, f"{section.replace(' ', '_')}.md")
+            with open(filename, 'w') as f:
+                f.write(markdown)
+
+        print(f"Checklist saved to directory {output_directory}")

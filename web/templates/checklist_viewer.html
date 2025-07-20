@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checklist</title>
+</head>
+<body>
+    {% for section, markdown in sections.items() %}
+        <h2>{{ section }}</h2>
+        {{ markdown|markdown }}
+    {% endfor %}
+</body>
+</html>

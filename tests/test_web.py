@@ -37,5 +37,34 @@ class TestWebApp(unittest.TestCase):
         os.remove('temp.json')
         os.remove('web/diagram.png')
 
+    def test_checklist_get(self):
+        response = self.app.get('/checklist')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Research Artifacts Library', response.data)
+
+    def test_checklist_post(self):
+        data = {
+            'checklist_type': 'CONSORT',
+            'json_data': '''
+                {
+                    "checklist_type": "CONSORT",
+                    "title": "CONSORT 2010 Checklist of Information to Include When Reporting a Randomised Trial",
+                    "items": [
+                        {
+                            "section": "Title and abstract",
+                            "id": "1a",
+                            "description": "Identification as a randomised trial in the title",
+                            "type": "boolean"
+                        }
+                    ]
+                }
+            '''
+        }
+        response = self.app.post('/checklist', data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Title and abstract', response.data)
+        # Clean up the generated files
+        os.remove('temp.json')
+
 if __name__ == '__main__':
     unittest.main()
