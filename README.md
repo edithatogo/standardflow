@@ -11,6 +11,20 @@ This project provides a library for generating research artifacts, such as diagr
 
 ## Getting Started
 
+### With Docker
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/research-artifacts-library.git
+    ```
+2.  Build and run the application using Docker Compose:
+    ```bash
+    docker-compose up --build
+    ```
+3.  Open your web browser and navigate to `http://localhost:5000`.
+
+### Without Docker
+
 1.  Clone the repository:
     ```bash
     git clone https://github.com/your-username/research-artifacts-library.git
