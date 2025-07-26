@@ -1,3 +1,4 @@
+print("Executing web/app.py...")
 from flask import Flask, render_template, request, send_file
 import sys
 import os
@@ -53,4 +54,6 @@ def checklist():
     return render_template('checklist.html')
 
 if __name__ == '__main__':
+    print("Starting Flask application...")
     app.run(debug=True)
+    print("Flask application stopped.")
