@@ -5,9 +5,15 @@ This project provides a library for generating research artifacts, such as diagr
 ## Supported Artifacts
 
 *   [PRISMA 2020 Flow Diagram](#prisma-2020-flow-diagram)
+*   [PRISMA 2020 Flow Diagram for Updated Reviews](#prisma-2020-flow-diagram-for-updated-reviews)
 *   [CONSORT 2010 Flow Diagram](#consort-2010-flow-diagram)
+*   [CONSORT 2010 Flow Diagram for Cluster-Randomised Trials](#consort-2010-flow-diagram-for-cluster-randomised-trials)
 *   [STROBE 2007 Flow Diagram](#strobe-2007-flow-diagram)
+*   [STROBE 2007 Flow Diagram for Cohort Studies](#strobe-2007-flow-diagram-for-cohort-studies)
 *   [CONSORT 2010 Checklist](#consort-2010-checklist)
+*   [STROBE 2007 Checklist for Cohort Studies](#strobe-2007-checklist-for-cohort-studies)
+*   [STROBE 2007 Checklist for Case-Control Studies](#strobe-2007-checklist-for-case-control-studies)
+*   [STROBE 2007 Checklist for Cross-Sectional Studies](#strobe-2007-checklist-for-cross-sectional-studies)
 
 ## Getting Started
 
