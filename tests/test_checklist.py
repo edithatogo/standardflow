@@ -28,5 +28,14 @@ class TestChecklist(unittest.TestCase):
         self.checklist.generate(self.output_md)
         self.assertTrue(os.path.exists(self.output_md))
 
+    def test_snapshot(self):
+        """Test that the generated markdown matches the snapshot."""
+        sections = self.checklist.to_markdown_by_section()
+        for section, markdown in sections.items():
+            snapshot_filename = os.path.join('tests/snapshots', f"consort_checklist_{section.replace(' ', '_').lower()}.md")
+            with open(snapshot_filename, 'r') as f:
+                snapshot_content = f.read()
+            self.assertEqual(markdown.strip(), snapshot_content.strip())
+
 if __name__ == '__main__':
     unittest.main()
