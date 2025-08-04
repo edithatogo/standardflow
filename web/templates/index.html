@@ -27,6 +27,19 @@
                 document.getElementById('strobe_cohort_fields').style.display = 'block';
             }
         }
+
+        function toggleJsonInput() {
+            var jsonToggle = document.getElementById('json_toggle');
+            var dynamicForm = document.getElementById('dynamic_form');
+            var jsonInput = document.getElementById('json_input');
+            if (jsonToggle.checked) {
+                dynamicForm.style.display = 'none';
+                jsonInput.style.display = 'block';
+            } else {
+                dynamicForm.style.display = 'block';
+                jsonInput.style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body onload="updateForm()">
@@ -42,8 +55,12 @@
             <option value="STROBE_COHORT">STROBE (Cohort)</option>
         </select>
         <br>
+        <input type="checkbox" id="json_toggle" onchange="toggleJsonInput()">
+        <label for="json_toggle">Use Raw JSON Input</label>
+        <br>
 
-        <div id="prisma_fields">
+        <div id="dynamic_form">
+            <div id="prisma_fields">
             <h2>PRISMA Fields</h2>
             <label for="records_identified">Records identified through database searching:</label>
             <input type="number" name="records_identified" value="1000"><br>
@@ -183,8 +200,13 @@
             <input type="number" name="unexposed_group_lost_to_follow_up" value="50"><br>
             <label for="unexposed_group_analysed">Analysed:</label>
             <input type="number" name="unexposed_group_analysed" value="250"><br>
+            </div>
         </div>
-
+        <div id="json_input" style="display: none;">
+            <label for="json_data">JSON Data:</label>
+            <br>
+            <textarea name="json_data" id="json_data" rows="20" cols="80"></textarea>
+        </div>
         <br>
         <input type="submit" value="Generate Diagram">
     </form>

@@ -71,6 +71,19 @@
             optionsDiv.appendChild(document.createElement('br'));
             optionsDiv.appendChild(newOption);
         }
+
+        function toggleJsonInput() {
+            var jsonToggle = document.getElementById('json_toggle');
+            var dynamicForm = document.getElementById('dynamic_form');
+            var jsonInput = document.getElementById('json_input');
+            if (jsonToggle.checked) {
+                dynamicForm.style.display = 'none';
+                jsonInput.style.display = 'block';
+            } else {
+                dynamicForm.style.display = 'block';
+                jsonInput.style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body>
@@ -85,10 +98,21 @@
             <option value="STARD">STARD</option>
         </select>
         <br>
-        <div id="items-container">
+        <input type="checkbox" id="json_toggle" onchange="toggleJsonInput()">
+        <label for="json_toggle">Use Raw JSON Input</label>
+        <br>
+
+        <div id="dynamic_form">
+            <div id="items-container">
+            </div>
+            <button type="button" onclick="addItem()">Add Item</button>
         </div>
-        <button type="button" onclick="addItem()">Add Item</button>
-        <br><br>
+        <div id="json_input" style="display: none;">
+            <label for="json_data">JSON Data:</label>
+            <br>
+            <textarea name="json_data" id="json_data" rows="20" cols="80"></textarea>
+        </div>
+        <br>
         <input type="submit" value="Generate Checklist">
     </form>
 </body>
