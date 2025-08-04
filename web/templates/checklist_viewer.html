@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <a href="{{ url_for('download_checklist') }}">
+        <button>Download Checklist</button>
+    </a>
+    <hr>
     {% for section, markdown in sections.items() %}
         <h2>{{ section }}</h2>
         {{ markdown|markdown }}
