@@ -1,11 +1,6 @@
-import graphviz
-import json
-import argparse
-import os
-import subprocess
-from jsonschema import validate
+from diagram import Diagram
 
-class PrismaDiagram:
+class PrismaDiagram(Diagram):
     """
     A class to generate PRISMA 2020 flow diagrams.
     """
@@ -16,27 +11,8 @@ class PrismaDiagram:
         Args:
             data (dict): A dictionary containing the PRISMA data.
         """
-        self.data = data
-        self.dot = graphviz.Digraph(comment='PRISMA 2020 Flow Diagram')
-        self.dot.attr('node', shape='box')
-
-    def _apply_styles(self):
-        """Applies the styles from the data to the graph."""
-        if 'style' in self.data:
-            style = self.data['style']
-            if 'box_color' in style:
-                self.dot.attr('node', style='filled', fillcolor=style['box_color'])
-            if 'font_color' in style:
-                self.dot.attr('node', fontcolor=style['font_color'])
-                self.dot.attr('edge', fontcolor=style['font_color'])
-            if 'font_name' in style:
-                self.dot.attr('node', fontname=style['font_name'])
-                self.dot.attr('edge', fontname=style['font_name'])
-            if 'font_size' in style:
-                self.dot.attr('node', fontsize=style['font_size'])
-                self.dot.attr('edge', fontsize=style['font_size'])
-            if 'arrow_color' in style:
-                self.dot.attr('edge', color=style['arrow_color'])
+        super().__init__(data)
+        self.dot.comment = 'PRISMA 2020 Flow Diagram'
 
     def _build_graph(self):
         """Builds the graph structure."""
@@ -87,29 +63,3 @@ class PrismaDiagram:
         self.dot.edge('H', 'I')
         self.dot.edge('I', 'J')
 
-    def generate(self, output_filename="prisma.png"):
-        """
-        Generates the PRISMA diagram and saves it to a file.
-
-        Args:
-            output_filename (str): The name of the output file.
-        """
-        self._apply_styles()
-        self._build_graph()
-
-        file_format = os.path.splitext(output_filename)[1][1:]
-
-        if file_format == 'tiff':
-            # Generate a temporary PNG file and then convert it to TIFF
-            temp_png_base = os.path.splitext(output_filename)[0]
-            self.dot.render(temp_png_base, format='png', view=False, cleanup=True)
-            temp_png_filename = temp_png_base + '.png'
-            subprocess.run(['convert', temp_png_filename, output_filename])
-            os.remove(temp_png_filename)
-        else:
-            base = os.path.splitext(output_filename)[0]
-            self.dot.render(base, format=file_format, view=False, cleanup=True)
-
-        print(f"PRISMA diagram saved as {output_filename}")
-
-# No main function needed here anymore.
