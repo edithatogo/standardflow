@@ -30,5 +30,14 @@ class TestConsort(unittest.TestCase):
         self.consort.generate(self.output_png)
         self.assertTrue(os.path.exists(self.output_png))
 
+    def test_snapshot(self):
+        """Test that the generated dot source matches the snapshot."""
+        self.snapshot_file = "tests/snapshots/consort.dot"
+        self.consort._build_graph()
+        generated_dot = self.consort.dot.source
+        with open(self.snapshot_file, 'r') as f:
+            snapshot_dot = f.read()
+        self.assertEqual(generated_dot.strip(), snapshot_dot.strip())
+
 if __name__ == '__main__':
     unittest.main()
