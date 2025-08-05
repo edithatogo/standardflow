@@ -1,38 +1,30 @@
 import unittest
 import os
 import json
-import sys
-
-# Add the src directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-
-from consort import ConsortDiagram
+from src.consort_cluster import ConsortClusterDiagram
 
 class TestConsortCluster(unittest.TestCase):
-
     def setUp(self):
         """Set up test data and output file paths."""
         with open('data/consort_cluster_data.json', 'r') as f:
             self.data = json.load(f)
         self.output_png = "test_consort_cluster.png"
         self.snapshot_file = "tests/snapshots/consort_cluster.dot"
-        self.consort = ConsortDiagram(self.data)
+        self.consort = ConsortClusterDiagram(self.data)
 
     def tearDown(self):
-        """Remove generated files after each test."""
+        """Tear down test files."""
         if os.path.exists(self.output_png):
             os.remove(self.output_png)
-            if os.path.exists(os.path.splitext(self.output_png)[0]):
-                os.remove(os.path.splitext(self.output_png)[0])
 
     def test_generate_consort_cluster_diagram_png(self):
         """Test that the CONSORT cluster diagram is generated as a PNG file."""
-        self.consort.generate(self.output_png)
+        self.consort.save(self.output_png)
         self.assertTrue(os.path.exists(self.output_png))
 
     def test_snapshot(self):
         """Test that the generated dot source matches the snapshot."""
-        self.consort._build_graph()
+        self.consort.build_graph()
         generated_dot = self.consort.dot.source
         with open(self.snapshot_file, 'r') as f:
             snapshot_dot = f.read()

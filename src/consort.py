@@ -1,34 +1,36 @@
-from diagram import Diagram
+from src.diagram import Diagram
 
 class ConsortDiagram(Diagram):
     def __init__(self, data):
         super().__init__(data)
-        self.build_graph()
 
     def build_graph(self):
         self.dot.node('A', f"Assessed for eligibility (n={self.data['assessed_for_eligibility']})")
         self.dot.node('B', f"Excluded (n={self.data['excluded']})")
         self.dot.node('C', f"Randomized (n={self.data['randomized']})")
-        self.dot.node('D', f"Allocated to intervention (n={self.data['allocated_to_intervention']})")
-        self.dot.node('E', f"Received allocated intervention (n={self.data['received_allocated_intervention']})")
-        self.dot.node('F', f"Did not receive allocated intervention (n={self.data['did_not_receive_allocated_intervention']})")
-        self.dot.node('G', f"Lost to follow-up (n={self.data['lost_to_follow_up']})")
-        self.dot.node('H', f"Discontinued intervention (n={self.data['discontinued_intervention']})")
-        self.dot.node('I', f"Analysed (n={self.data['analysed']})")
-        self.dot.node('J', f"Excluded from analysis (n={self.data['excluded_from_analysis']})")
+        self.dot.node('D', f"Allocated to intervention (n={self.data['intervention_group_allocated']})")
+        self.dot.node('E', f"Received intervention (n={self.data['intervention_group_received']})")
+        self.dot.node('F', f"Lost to follow-up (n={self.data['intervention_group_lost_to_follow_up']})")
+        self.dot.node('G', f"Discontinued intervention (n={self.data['intervention_group_discontinued']})")
+        self.dot.node('H', f"Analysed (n={self.data['intervention_group_analysed']})")
+        self.dot.node('I', f"Allocated to control (n={self.data['control_group_allocated']})")
+        self.dot.node('J', f"Received control (n={self.data['control_group_received']})")
+        self.dot.node('K', f"Lost to follow-up (n={self.data['control_group_lost_to_follow_up']})")
+        self.dot.node('L', f"Discontinued control (n={self.data['control_group_discontinued']})")
+        self.dot.node('M', f"Analysed (n={self.data['control_group_analysed']})")
 
-        self.dot.edge('A', 'B')
         self.dot.edge('A', 'C')
+        self.dot.edge('A', 'B')
         self.dot.edge('C', 'D')
+        self.dot.edge('C', 'I')
         self.dot.edge('D', 'E')
-        self.dot.edge('D', 'F')
+        self.dot.edge('E', 'F')
         self.dot.edge('E', 'G')
         self.dot.edge('E', 'H')
-        self.dot.edge('E', 'I')
         self.dot.edge('I', 'J')
+        self.dot.edge('J', 'K')
+        self.dot.edge('J', 'L')
+        self.dot.edge('J', 'M')
 
-    def to_dot(self, output_path):
-        self.dot.render(output_path, format='dot', cleanup=True)
-
-    def to_png(self, output_path):
-        self.dot.render(output_path, format='png', cleanup=True)
+    def save(self, path):
+        self.dot.render(path, format='png', view=False)

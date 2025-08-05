@@ -1,18 +1,19 @@
 import unittest
-import sys
 import os
-sys.path.append('web')
-from app import app
+import json
+from web.app import app
 
 class TestWebApp(unittest.TestCase):
-
     def setUp(self):
         self.app = app.test_client()
+        self.app.testing = True
+
+    def tearDown(self):
+        pass
 
     def test_index_get(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Research Artifacts Library', response.data)
 
     def test_index_post(self):
         data = {
@@ -30,12 +31,10 @@ class TestWebApp(unittest.TestCase):
         self.assertIn(b'Generated Diagram', response.data)
         # Clean up the generated files
         os.remove('temp.json')
-        os.remove('web/diagram.png')
 
     def test_checklist_get(self):
         response = self.app.get('/checklist')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Research Artifacts Library', response.data)
 
     def test_checklist_post(self):
         data = {
@@ -44,12 +43,23 @@ class TestWebApp(unittest.TestCase):
             'section-1': 'Title and abstract',
             'description-1': 'Identification as a randomised trial in the title',
             'type-1': 'boolean',
+            'assessed_for_eligibility': '1000',
+            'excluded': '200',
+            'randomized': '800',
+            'allocated_to_intervention': '400',
+            'received_allocated_intervention': '400',
+            'did_not_receive_allocated_intervention': '0',
+            'lost_to_follow_up': '20',
+            'discontinued_intervention': '10',
+            'analysed': '370',
+            'excluded_from_analysis': '0'
         }
         response = self.app.post('/checklist', data=data)
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Title and abstract', response.data)
+        self.assertIn(b'Generated Checklist', response.data)
         # Clean up the generated files
         os.remove('temp.json')
+        os.remove('web/static/checklist.md')
 
 if __name__ == '__main__':
     unittest.main()

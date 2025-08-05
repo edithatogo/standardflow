@@ -26,7 +26,7 @@ from .main import generate_artifact
 @click.option('--output', '-o', default='output', help='Output file name.')
 def generate(input, output):
     """Generates a diagram or checklist from a JSON file."""
-    generate_artifact(input, output)
+    generate_artifact(input, output, schema_dir='schemas')
 
 if __name__ == '__main__':
     cli()

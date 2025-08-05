@@ -27,13 +27,13 @@ class TestConsort(unittest.TestCase):
 
     def test_generate_consort_diagram_png(self):
         """Test that the CONSORT diagram is generated as a PNG file."""
-        self.consort.generate(self.output_png)
+        self.consort.save(self.output_png)
         self.assertTrue(os.path.exists(self.output_png))
 
     def test_snapshot(self):
         """Test that the generated dot source matches the snapshot."""
         self.snapshot_file = "tests/snapshots/consort.dot"
-        self.consort._build_graph()
+        self.consort.build_graph()
         generated_dot = self.consort.dot.source
         with open(self.snapshot_file, 'r') as f:
             snapshot_dot = f.read()

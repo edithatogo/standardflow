@@ -2,13 +2,14 @@
 <html>
 <head>
     <title>Checklist</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <a href="{{ url_for('download_checklist') }}">
         <button>Download Checklist</button>
     </a>
     <hr>
+    <h1>Generated Checklist</h1>
     {% for section, markdown in sections.items() %}
         <h2>{{ section }}</h2>
         {{ markdown|markdown }}

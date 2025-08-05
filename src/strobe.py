@@ -1,9 +1,8 @@
-from diagram import Diagram
+from src.diagram import Diagram
 
 class StrobeDiagram(Diagram):
     def __init__(self, data):
         super().__init__(data)
-        self.build_graph()
 
     def build_graph(self):
         self.dot.node('A', f"Potentially eligible (n={self.data['potentially_eligible']})")
@@ -13,7 +12,6 @@ class StrobeDiagram(Diagram):
         self.dot.node('E', f"Lost to follow-up (n={self.data['lost_to_follow_up']})")
         self.dot.node('F', f"Incomplete data (n={self.data['incomplete_data']})")
         self.dot.node('G', f"Analysed (n={self.data['analysed']})")
-        self.dot.node('H', f"Excluded from analysis (n={self.data['excluded']})")
 
         self.dot.edge('A', 'B')
         self.dot.edge('B', 'C')
@@ -21,10 +19,6 @@ class StrobeDiagram(Diagram):
         self.dot.edge('D', 'E')
         self.dot.edge('D', 'F')
         self.dot.edge('D', 'G')
-        self.dot.edge('G', 'H')
 
-    def to_dot(self, output_path):
-        self.dot.render(output_path, format='dot', cleanup=True)
-
-    def to_png(self, output_path):
-        self.dot.render(output_path, format='png', cleanup=True)
+    def save(self, path):
+        self.dot.render(path, view=False)
