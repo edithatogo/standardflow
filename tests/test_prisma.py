@@ -76,6 +76,15 @@ class TestPrisma(unittest.TestCase):
         self.prisma.generate(self.output_eps)
         self.assertTrue(os.path.exists(self.output_eps))
 
+    def test_snapshot(self):
+        """Test that the generated dot source matches the snapshot."""
+        self.snapshot_file = "tests/snapshots/prisma.dot"
+        self.prisma._build_graph()
+        generated_dot = self.prisma.dot.source
+        with open(self.snapshot_file, 'r') as f:
+            snapshot_dot = f.read()
+        self.assertEqual(generated_dot.strip(), snapshot_dot.strip())
+
 
 if __name__ == '__main__':
     unittest.main()
