@@ -1,17 +1,18 @@
-import argparse
 import json
 from jsonschema import validate
-from diagram import Diagram
-from consort import ConsortDiagram
-from strobe import StrobeDiagram
-from prisma import PrismaDiagram
-from checklist import Checklist
+from src.consort import ConsortDiagram
+from src.prisma import PrismaDiagram
+from src.strobe import StrobeDiagram
+from src.checklist import Checklist
 
 def generate_artifact(input_path, output_path, schema_dir='schemas'):
+    """
+    Generates an artifact from a JSON file.
+    """
     with open(input_path, 'r') as f:
         data = json.load(f)
 
-    diagram_type = data.get("diagram_type")
+    diagram_type = data.get('diagram_type')
     if not diagram_type:
         raise ValueError("The 'diagram_type' key is missing from the JSON file.")
 
@@ -23,30 +24,19 @@ def generate_artifact(input_path, output_path, schema_dir='schemas'):
 
     if diagram_type == "CONSORT":
         diagram = ConsortDiagram(data)
-    elif diagram_type == "STROBE":
-        diagram = StrobeDiagram(data)
+        diagram.save(output_path)
+        print(f"CONSORT diagram saved as {output_path}")
     elif diagram_type == "PRISMA":
         diagram = PrismaDiagram(data)
-    elif diagram_type.endswith("_CHECKLIST"):
-        diagram = Checklist(data)
+        diagram.save(output_path)
+        print(f"PRISMA diagram saved as {output_path}")
+    elif diagram_type == "STROBE":
+        diagram = StrobeDiagram(data)
+        diagram.save(output_path)
+        print(f"STROBE diagram saved as {output_path}")
+    elif "checklist" in diagram_type.lower():
+        checklist = Checklist(data)
+        checklist.save(output_path)
+        print(f"{diagram_type} checklist saved as {output_path}")
     else:
-        raise ValueError(f"Unknown diagram type: {diagram_type}")
-
-    if output_path.endswith(".md"):
-        diagram.to_markdown(output_path)
-    else:
-        diagram.to_png(output_path)
-
-    print(f"{diagram_type} diagram saved as {output_path}")
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Generate a diagram or checklist from a JSON file.")
-    parser.add_argument("input", help="Path to the input JSON file.")
-    parser.add_argument("-o", "--output", help="Output file name. The format is determined by the file extension (e.g., .png, .svg, .pdf, .tiff, .eps, .md).")
-    parser.add_argument("--schema-dir", help="Directory where the schema files are located.", default="schemas")
-    args = parser.parse_args()
-    generate_artifact(args.input, args.output, args.schema_dir)
-
-if __name__ == "__main__":
-    main()
+        raise ValueError(f"Unknown diagram_type: {diagram_type}")

@@ -21,11 +21,11 @@ class TestStardChecklist(unittest.TestCase):
     def tearDown(self):
         """Remove generated files after each test."""
         if os.path.exists(self.output_md):
-            shutil.rmtree(self.output_md)
+            os.remove(self.output_md)
 
     def test_generate_checklist_md(self):
         """Test that the checklist is generated as a Markdown file."""
-        self.checklist.generate(self.output_md)
+        self.checklist.save(self.output_md)
         self.assertTrue(os.path.exists(self.output_md))
 
     def test_snapshot(self):
