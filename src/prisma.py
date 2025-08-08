@@ -11,7 +11,11 @@ class PrismaDiagram(Diagram):
         self.dot.node('D', f"Records excluded (n={self.data['excluded_records']})")
         self.dot.node('E', f"Full-text articles assessed for eligibility (n={self.data['retrieved_reports']})")
         self.dot.node('F', f"Full-text articles excluded (n={self.data['excluded_reports']})")
-        self.dot.node('G', f"Studies included in qualitative synthesis (n={self.data['studies_included']})")
+        if 'studies_included' in self.data:
+            studies_included_text = f"Studies included in qualitative synthesis (n={self.data['studies_included']})"
+        else:
+            studies_included_text = f"Studies included in qualitative synthesis (n={self.data['included_studies']})"
+        self.dot.node('G', studies_included_text)
         self.dot.node('H', f"Studies included in quantitative synthesis (n={self.data['included_in_synthesis']})")
 
         self.dot.edge('A', 'B')

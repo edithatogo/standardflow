@@ -10,6 +10,5 @@ class Diagram:
         raise NotImplementedError
 
     def save(self, path):
-        output_path = os.path.abspath(path)
-        self.dot.render(output_path, format='png', view=False, cleanup=False)
-        print(f"File exists: {os.path.exists(f'{output_path}.png')}")
+        output_path_without_ext = os.path.splitext(path)[0]
+        self.dot.render(output_path_without_ext, format='png', view=False, cleanup=True)

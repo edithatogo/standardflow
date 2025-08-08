@@ -6,7 +6,11 @@ class ConsortDiagram(Diagram):
 
     def build_graph(self):
         self.dot.node('A', f"Assessed for eligibility (n={self.data['assessed_for_eligibility']})")
-        self.dot.node('B', f"Excluded (n={self.data['excluded']})")
+        if 'excluded' in self.data:
+            excluded_text = f"Excluded (n={self.data['excluded']})"
+        else:
+            excluded_text = f"Excluded (n={self.data['excluded_before_randomization']})"
+        self.dot.node('B', excluded_text)
         self.dot.node('C', f"Randomized (n={self.data['randomized']})")
         self.dot.node('D', f"Allocated to intervention (n={self.data['intervention_group_allocated']})")
         self.dot.node('E', f"Received intervention (n={self.data['intervention_group_received']})")

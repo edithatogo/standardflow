@@ -92,37 +92,37 @@ This will produce the following diagram:
 
 ### PRISMA 2020 Flow Diagram
 
-![PRISMA Example](examples/images/prisma_example.png)
+![PRISMA Example](examples/images/prisma_diagram_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/prisma_example.ipynb)
 
 ### PRISMA 2020 Flow Diagram for Updated Reviews
 
-![PRISMA 2020 Updated Example](examples/images/prisma_2020_updated_example.png)
+![PRISMA 2020 Updated Example](examples/images/prisma_2020_updated_diagram_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/prisma_2020_updated_diagram_example.ipynb)
 
 ### CONSORT 2010 Flow Diagram
 
-![CONSORT Example](examples/images/consort_example.png)
+![CONSORT Example](examples/images/consort_diagram_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/consort_example.ipynb)
 
 ### CONSORT 2010 Flow Diagram for Cluster-Randomised Trials
 
-![CONSORT Cluster Example](examples/images/consort_cluster_example.png)
+![CONSORT Cluster Example](examples/images/consort_cluster_diagram_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/consort_cluster_diagram_example.ipynb)
 
 ### STROBE 2007 Flow Diagram
 
-![STROBE Example](examples/images/strobe_example.png)
+![STROBE Example](examples/images/strobe_diagram_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/strobe_example.ipynb)
 
 ### STROBE 2007 Flow Diagram for Cohort Studies
 
-![STROBE Cohort Example](examples/images/strobe_cohort_example.png)
+![STROBE Cohort Example](examples/images/strobe_cohort_diagram_example.png)
 
 [Jupyter Notebook Example](examples/notebooks/strobe_cohort_diagram_example.ipynb)
 
