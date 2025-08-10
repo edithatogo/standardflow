@@ -10,5 +10,16 @@ class Diagram:
         raise NotImplementedError
 
     def save(self, path):
-        output_path_without_ext = os.path.splitext(path)[0]
-        self.dot.render(output_path_without_ext, format='png', view=False, cleanup=True)
+        output_path_without_ext, ext = os.path.splitext(path)
+        format = ext.lstrip('.')
+
+        if format == 'typ':
+            # For typst, we first render to svg
+            svg_path = output_path_without_ext + '.svg'
+            self.dot.render(output_path_without_ext, format='svg', view=False, cleanup=True)
+
+            # Then we create a .typ file that includes the svg
+            with open(path, 'w') as f:
+                f.write(f'#image("{os.path.basename(svg_path)}")')
+        else:
+            self.dot.render(output_path_without_ext, format=format, view=False, cleanup=True)

@@ -36,5 +36,3 @@ class ConsortDiagram(Diagram):
         self.dot.edge('J', 'L')
         self.dot.edge('J', 'M')
 
-    def save(self, path):
-        self.dot.render(path, format='png', view=False)

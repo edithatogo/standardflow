@@ -6,9 +6,13 @@
 </head>
 <body>
     <h1>Generated Diagram</h1>
-    <img src="{{ url_for('static', filename=diagram_image) }}" alt="Generated Diagram">
+    {% if diagram_file.endswith('.png') or diagram_file.endswith('.svg') %}
+        <img src="{{ url_for('static', filename=diagram_file) }}" alt="Generated Diagram">
+    {% else %}
+        <p>Your diagram has been generated. You can download it using the link below.</p>
+    {% endif %}
     <br>
-    <a href="{{ url_for('static', filename=diagram_image) }}" download>
+    <a href="{{ url_for('download_diagram', filename=diagram_file) }}">
         <button>Download Diagram</button>
     </a>
 </body>

@@ -20,5 +20,3 @@ class StrobeDiagram(Diagram):
         self.dot.edge('D', 'F')
         self.dot.edge('D', 'G')
 
-    def save(self, path):
-        self.dot.render(path, view=False)

@@ -26,5 +26,3 @@ class PrismaDiagram(Diagram):
         self.dot.edge('E', 'G')
         self.dot.edge('G', 'H')
 
-    def save(self, path):
-        self.dot.render(path, view=False)

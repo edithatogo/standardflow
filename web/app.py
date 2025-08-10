@@ -15,14 +15,17 @@ def index():
     if request.method == 'POST':
         data = request.form.to_dict()
         diagram_type = data.get('diagram_type')
+        output_format = data.get('output_format', 'png')
+
         if diagram_type:
             temp_file = "temp.json"
             with open(temp_file, 'w') as f:
                 json.dump(data, f)
 
-            output_file = os.path.join(app.root_path, 'static', 'diagram.png')
+            output_filename = f'diagram.{output_format}'
+            output_file = os.path.join(app.root_path, 'static', output_filename)
             generate_artifact(temp_file, output_file, schema_dir='schemas')
-            return render_template('diagram_viewer.html', diagram_file='diagram.png')
+            return render_template('diagram_viewer.html', diagram_file=output_filename)
     return render_template('index.html')
 
 @app.route('/checklist', methods=['GET', 'POST'])
@@ -54,6 +57,10 @@ def checklist():
 @app.route('/download_checklist')
 def download_checklist():
     return send_file(os.path.join(app.root_path, 'static', 'checklist.md'), as_attachment=True)
+
+@app.route('/download_diagram/<filename>')
+def download_diagram(filename):
+    return send_file(os.path.join(app.root_path, 'static', filename), as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)

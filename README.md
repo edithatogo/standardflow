@@ -50,7 +50,7 @@ This project provides a library for generating research artifacts, such as diagr
     ```bash
     python -m src.cli generate data/your_data.json -o your_artifact.png
     ```
-    You can change the output format by changing the file extension in the output filename.
+    See the [Output Formats](#output-formats) section for more details on the supported formats.
 
 ## Styling
 
@@ -87,6 +87,31 @@ Here is an example of a JSON file with styling information:
 This will produce the following diagram:
 
 ![Styled PRISMA Example](examples/images/styled_prisma.png)
+
+## Output Formats
+
+This library supports generating diagrams in the following formats:
+
+*   **PNG:** A raster image format.
+*   **SVG:** A vector image format, suitable for high-quality publications and web use.
+*   **PDF:** A portable document format, useful for sharing and printing.
+*   **Typst:** A modern typesetting system. This will generate a `.typ` file that includes an SVG of the diagram.
+
+You can specify the output format by using the appropriate file extension in the output filename when using the CLI. For example:
+
+```bash
+# Generate a PNG
+python -m src.cli generate data/your_data.json -o your_artifact.png
+
+# Generate an SVG
+python -m src.cli generate data/your_data.json -o your_artifact.svg
+
+# Generate a PDF
+python -m src.cli generate data/your_data.json -o your_artifact.pdf
+
+# Generate a Typst file
+python -m src.cli generate data/your_data.json -o your_artifact.typ
+```
 
 ## Examples
 

@@ -58,6 +58,14 @@
         <input type="checkbox" id="json_toggle" onchange="toggleJsonInput()">
         <label for="json_toggle">Use Raw JSON Input</label>
         <br>
+        <label for="output_format">Output Format:</label>
+        <select name="output_format" id="output_format">
+            <option value="png">PNG</option>
+            <option value="svg">SVG</option>
+            <option value="pdf">PDF</option>
+            <option value="typ">Typst</option>
+        </select>
+        <br>
 
         <div id="dynamic_form">
             <div id="prisma_fields">
