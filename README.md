@@ -46,11 +46,68 @@ This project provides a library for generating research artifacts, such as diagr
 
 3.  Create a JSON file with your data. See the `data` directory for examples.
 
-4.  Run the script to generate an artifact:
-    ```bash
-    python -m src.cli generate data/your_data.json -o your_artifact.png
-    ```
-    See the [Output Formats](#output-formats) section for more details on the supported formats.
+For more details on using the command-line interface, see the [CLI Usage](#cli-usage) section.
+
+## CLI Usage
+
+The command-line interface provides a powerful way to interact with this library.
+
+### `generate`
+
+The `generate` command is used to create a diagram or checklist from a JSON data file.
+
+**Usage:**
+```bash
+python -m src.cli generate [OPTIONS] INPUT
+```
+
+**Arguments:**
+*   `INPUT`: The path to the JSON data file.
+
+**Options:**
+*   `-o, --output TEXT`: The output file name. The format is inferred from the extension.
+*   `-s, --style PATH`: Path to a JSON file with styling information.
+*   `--set TEXT`: Set a key-value pair in the data, e.g., `--set randomized=999`. Can be used multiple times.
+*   `--interactive`: Run in interactive mode to be prompted for data.
+
+**Example:**
+```bash
+python -m src.cli generate examples/data/consort_data.json -o consort.png --set randomized=999
+```
+
+### `validate`
+
+The `validate` command is used to validate a JSON data file against the appropriate schema.
+
+**Usage:**
+```bash
+python -m src.cli validate INPUT
+```
+
+**Arguments:**
+*   `INPUT`: The path to the JSON data file to validate.
+
+### `list`
+
+The `list` command lists the available diagram and checklist types.
+
+**Usage:**
+```bash
+python -m src.cli list
+```
+
+### `schemas`
+
+The `schemas` command lists available schemas or prints a specific schema.
+
+**Usage:**
+```bash
+# List all schemas
+python -m src.cli schemas
+
+# Print a specific schema
+python -m src.cli schemas CONSORT
+```
 
 ## Styling
 

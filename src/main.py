@@ -5,13 +5,10 @@ from src.prisma import PrismaDiagram
 from src.strobe import StrobeDiagram
 from src.checklist import Checklist
 
-def generate_artifact(input_path, output_path, schema_dir='schemas'):
+def validate_data(data, schema_dir='schemas'):
     """
-    Generates an artifact from a JSON file.
+    Validates the given data against the appropriate schema.
     """
-    with open(input_path, 'r') as f:
-        data = json.load(f)
-
     diagram_type = data.get('diagram_type')
     if not diagram_type:
         raise ValueError("The 'diagram_type' key is missing from the JSON file.")
@@ -21,17 +18,49 @@ def generate_artifact(input_path, output_path, schema_dir='schemas'):
         schema = json.load(f)
 
     validate(instance=data, schema=schema)
+    return data
+
+def generate_artifact(input_path, output_path, style_path=None, set_values=None, schema_dir='schemas'):
+    """
+    Generates an artifact from a JSON file.
+    """
+    with open(input_path, 'r') as f:
+        data = json.load(f)
+
+    if style_path:
+        with open(style_path, 'r') as f:
+            style_data = json.load(f)
+        data['style'] = style_data
+
+    if set_values:
+        for item in set_values:
+            key, value = item.split('=', 1)
+            # try to convert to int or float
+            try:
+                value = int(value)
+            except ValueError:
+                try:
+                    value = float(value)
+                except ValueError:
+                    pass
+            data[key] = value
+
+    data = validate_data(data, schema_dir)
+    diagram_type = data.get('diagram_type')
 
     if diagram_type == "CONSORT":
         diagram = ConsortDiagram(data)
+        diagram.build_graph()
         diagram.save(output_path)
         print(f"CONSORT diagram saved as {output_path}")
     elif diagram_type == "PRISMA":
         diagram = PrismaDiagram(data)
+        diagram.build_graph()
         diagram.save(output_path)
         print(f"PRISMA diagram saved as {output_path}")
     elif diagram_type == "STROBE":
         diagram = StrobeDiagram(data)
+        diagram.build_graph()
         diagram.save(output_path)
         print(f"STROBE diagram saved as {output_path}")
     elif "checklist" in diagram_type.lower():
