@@ -16,6 +16,7 @@ def list():
 
     click.echo("\nAvailable checklist types:")
     click.echo("- CONSORT")
+    click.echo("- CARE")
 
 from .main import generate_artifact
 
@@ -32,7 +33,7 @@ Example:
 @click.option('--interactive', is_flag=True, help='Run in interactive mode.')
 def generate(input, output, style, set, interactive):
     if interactive:
-        diagram_type = click.prompt("Select a diagram type", type=click.Choice(['CONSORT', 'PRISMA', 'STROBE'], case_sensitive=False))
+        diagram_type = click.prompt("Select a diagram or checklist type", type=click.Choice(['CONSORT', 'PRISMA', 'STROBE', 'CARE_CHECKLIST'], case_sensitive=False))
         data = {'diagram_type': diagram_type}
 
         schema_path = f"schemas/{diagram_type.lower()}_schema.json"

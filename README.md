@@ -14,6 +14,7 @@ This project provides a library for generating research artifacts, such as diagr
 *   [STROBE 2007 Checklist for Cohort Studies](#strobe-2007-checklist-for-cohort-studies)
 *   [STROBE 2007 Checklist for Case-Control Studies](#strobe-2007-checklist-for-case-control-studies)
 *   [STROBE 2007 Checklist for Cross-Sectional Studies](#strobe-2007-checklist-for-cross-sectional-studies)
+*   [CARE Checklist for Case Reports](#care-checklist-for-case-reports)
 
 ## Getting Started
 
@@ -223,6 +224,10 @@ python -m src.cli generate data/your_data.json -o your_artifact.typ
 ### STROBE 2007 Checklist for Cross-Sectional Studies
 
 [Jupyter Notebook Example](examples/notebooks/strobe_cross_sectional_checklist_example.ipynb)
+
+### CARE Checklist for Case Reports
+
+[Jupyter Notebook Example](examples/notebooks/care_checklist_example.ipynb)
 
 ## Contributing
 
