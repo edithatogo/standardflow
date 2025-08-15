@@ -68,5 +68,17 @@ class TestCli(unittest.TestCase):
         result = self.runner.invoke(cli, ['generate', self.valid_data_path, '-o', 'test.png', '--set', 'randomized=999'])
         self.assertEqual(result.exit_code, 0)
 
+    def test_generate_interactive(self):
+        input_data = 'TEST\nvalue1\nvalue2\n'
+        result = self.runner.invoke(cli, ['generate', '-o', 'test.png', '--interactive', '--schema', 'tests/test_schema.json'], input=input_data)
+        self.assertNotEqual(result.exit_code, 0)
+        self.assertIsInstance(result.exception, ValueError)
+        self.assertIn("Unknown diagram_type", str(result.exception))
+
+    def test_generate_no_input(self):
+        result = self.runner.invoke(cli, ['generate'])
+        self.assertNotEqual(result.exit_code, 0)
+        self.assertIn("Missing argument 'INPUT'", result.output)
+
 if __name__ == '__main__':
     unittest.main()

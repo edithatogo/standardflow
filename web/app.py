@@ -31,14 +31,27 @@ def index():
 @app.route('/checklist', methods=['GET', 'POST'])
 def checklist():
     if request.method == 'POST':
-        data = request.form.to_dict()
-        data['diagram_type'] = data.get('checklist_type')
-        checklist_type = data.get('checklist_type')
+        form_data = request.form.to_dict()
+        checklist_type = form_data.get('checklist_type')
         if checklist_type:
+            data = {
+                "diagram_type": checklist_type + "_checklist",
+                "items": []
+            }
+            i = 1
+            while f'id-{i}' in form_data:
+                item = {
+                    'id': form_data[f'id-{i}'],
+                    'section': form_data[f'section-{i}'],
+                    'description': form_data[f'description-{i}'],
+                    'type': form_data[f'type-{i}'],
+                }
+                data['items'].append(item)
+                i += 1
+
             temp_file = "temp.json"
             with open(temp_file, 'w') as f:
                 json.dump(data, f)
-
             output_file = os.path.join(app.root_path, 'static', 'checklist.md')
             generate_artifact(temp_file, output_file, schema_dir='schemas')
             with open(output_file, 'r') as f:

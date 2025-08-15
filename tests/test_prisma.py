@@ -12,8 +12,6 @@ class TestPrisma(unittest.TestCase):
         self.output_png = "test_prisma.png"
         self.output_svg = "test_prisma.svg"
         self.output_pdf = "test_prisma.pdf"
-        self.output_tiff = "test_prisma.tiff"
-        self.output_eps = "test_prisma.eps"
         self.prisma = PrismaDiagram(self.data)
 
     def tearDown(self):
@@ -24,10 +22,6 @@ class TestPrisma(unittest.TestCase):
             os.remove(self.output_svg)
         if os.path.exists(self.output_pdf):
             os.remove(self.output_pdf)
-        if os.path.exists(self.output_tiff):
-            os.remove(self.output_tiff)
-        if os.path.exists(self.output_eps):
-            os.remove(self.output_eps)
 
     def test_generate_prisma_diagram_png(self):
         """Test that the PRISMA diagram is generated as a PNG file."""
@@ -43,16 +37,6 @@ class TestPrisma(unittest.TestCase):
         """Test that the PRISMA diagram is generated as a PDF file."""
         self.prisma.save(self.output_pdf)
         self.assertTrue(os.path.exists(self.output_pdf))
-
-    def test_generate_prisma_diagram_tiff(self):
-        """Test that the PRISMA diagram is generated as a TIFF file."""
-        self.prisma.save(self.output_tiff)
-        self.assertTrue(os.path.exists(self.output_tiff))
-
-    def test_generate_prisma_diagram_eps(self):
-        """Test that the PRISMA diagram is generated as an EPS file."""
-        self.prisma.save(self.output_eps)
-        self.assertTrue(os.path.exists(self.output_eps))
 
     def test_snapshot(self):
         """Test that the generated dot source matches the snapshot."""

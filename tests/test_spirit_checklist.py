@@ -1,0 +1,41 @@
+import unittest
+import os
+import json
+import sys
+import shutil
+
+from src.spirit import SpiritChecklist
+
+class TestSpiritChecklist(unittest.TestCase):
+
+    def setUp(self):
+        """Set up test data and output file paths."""
+        with open('data/spirit_checklist.json', 'r') as f:
+            self.data = json.load(f)
+        self.output_md = "test_spirit_checklist.md"
+        self.checklist = SpiritChecklist(self.data)
+
+    def tearDown(self):
+        """Remove generated files after each test."""
+        if os.path.exists(self.output_md):
+            os.remove(self.output_md)
+
+    def test_generate_checklist_md(self):
+        """Test that the checklist is generated as a Markdown file."""
+        self.checklist.save(self.output_md)
+        self.assertTrue(os.path.exists(self.output_md))
+
+    def test_snapshot(self):
+        """Test that the generated markdown matches the snapshot."""
+        sections = self.checklist.to_markdown_by_section()
+        for section, markdown in sections.items():
+            snapshot_filename = os.path.join('tests/snapshots', f"spirit_checklist_{section.replace(' ', '_').lower()}.md")
+            if not os.path.exists(snapshot_filename):
+                with open(snapshot_filename, 'w') as f:
+                    f.write(markdown.strip())
+            with open(snapshot_filename, 'r') as f:
+                snapshot_content = f.read()
+            self.assertEqual(markdown.strip(), snapshot_content.strip())
+
+if __name__ == '__main__':
+    unittest.main()

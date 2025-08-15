@@ -4,10 +4,7 @@ import json
 import sys
 import shutil
 
-# Add the src directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-
-from checklist import Checklist
+from src.stard import StardChecklist
 
 class TestStardChecklist(unittest.TestCase):
 
@@ -16,7 +13,7 @@ class TestStardChecklist(unittest.TestCase):
         with open('data/stard_checklist.json', 'r') as f:
             self.data = json.load(f)
         self.output_md = "test_stard_checklist.md"
-        self.checklist = Checklist(self.data)
+        self.checklist = StardChecklist(self.data)
 
     def tearDown(self):
         """Remove generated files after each test."""

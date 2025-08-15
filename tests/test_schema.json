@@ -1,0 +1,16 @@
+{
+    "properties": {
+        "diagram_type": {
+            "description": "The type of diagram to generate.",
+            "type": "string"
+        },
+        "prop1": {
+            "description": "Property 1",
+            "type": "string"
+        },
+        "prop2": {
+            "description": "Property 2",
+            "type": "string"
+        }
+    }
+}

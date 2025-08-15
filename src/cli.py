@@ -31,17 +31,22 @@ Example:
 @click.option('--style', '-s', type=click.Path(exists=True), help='Path to a JSON file with styling information.')
 @click.option('--set', multiple=True, help='Set a key-value pair in the data, e.g., --set title="My Diagram".')
 @click.option('--interactive', is_flag=True, help='Run in interactive mode.')
-def generate(input, output, style, set, interactive):
+@click.option('--schema', default=None, help='Path to a custom schema file for interactive mode.')
+def generate(input, output, style, set, interactive, schema):
     if interactive:
-        diagram_type = click.prompt("Select a diagram or checklist type", type=click.Choice(['CONSORT', 'PRISMA', 'STROBE', 'CARE_CHECKLIST'], case_sensitive=False))
-        data = {'diagram_type': diagram_type}
+        if schema:
+            schema_path = schema
+        else:
+            diagram_type = click.prompt("Select a diagram or checklist type", type=click.Choice(['CONSORT', 'PRISMA', 'STROBE', 'CARE_CHECKLIST'], case_sensitive=False))
+            data = {'diagram_type': diagram_type}
+            schema_path = f"schemas/{diagram_type.lower()}_schema.json"
 
-        schema_path = f"schemas/{diagram_type.lower()}_schema.json"
         with open(schema_path, 'r') as f:
             schema = json.load(f)
 
+        data = {}
         for prop, prop_schema in schema['properties'].items():
-            if prop in ['diagram_type', 'style']:
+            if prop in ['style']:
                 continue
 
             prompt_text = prop_schema.get('description', prop)
