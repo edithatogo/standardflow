@@ -2,7 +2,7 @@
 
 ## Decision
 
-`edithatogo/standards_check` is the primary adoption repository. Proposed foundation revision `820898e7ae21784145f98e04d8fc482367a6f015` defines the initial Canonical Standard Pack, artefact-recipe and ecosystem-evidence contracts. This pin is a review target, not an automatically promoted dependency.
+`edithatogo/standards_check` is the primary adoption repository. Verified foundation revision `f248d7c4dd40dd34cb45b5b6150b4750a5b28864` defines the initial Canonical Standard Pack, artefact-recipe and ecosystem-evidence contracts. This exact pin is a reviewed integration target and must not update automatically.
 
 ## What migrates
 
