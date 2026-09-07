@@ -10,7 +10,7 @@ This code generates research artefacts including PRISMA, CONSORT and STROBE diag
 git clone https://github.com/edithatogo/standardflow.git
 cd standardflow
 pip install -r requirements.txt
-python -m src.cli generate data/your_data.json -o output.svg
+python -m src.cli generate data/prisma_data.json -o prisma-example.svg
 ```
 
 Graphviz is required for diagram generation; TIFF conversion also requires ImageMagick.
