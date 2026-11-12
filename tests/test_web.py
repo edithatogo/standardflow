@@ -1,8 +1,8 @@
 import unittest
-import sys
+import io
 import os
-sys.path.append('web')
-from app import app
+import zipfile
+from web.app import app
 
 class TestWebApp(unittest.TestCase):
 
@@ -48,6 +48,17 @@ class TestWebApp(unittest.TestCase):
         response = self.app.post('/checklist', data=data)
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Title and abstract', response.data)
+        download = self.app.get('/download_checklist')
+        self.assertEqual(download.status_code, 200)
+        self.assertEqual(download.mimetype, 'application/zip')
+        self.assertIn('attachment', download.headers['Content-Disposition'])
+        self.assertIn('checklist.zip', download.headers['Content-Disposition'])
+        with zipfile.ZipFile(io.BytesIO(download.data)) as archive:
+            self.assertIn('Title_and_abstract.md', archive.namelist())
+            self.assertIn(
+                b'Identification as a randomised trial in the title',
+                archive.read('Title_and_abstract.md'),
+            )
         # Clean up the generated files
         os.remove('temp.json')
 

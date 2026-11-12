@@ -8,7 +8,10 @@ import os
 import json
 import io
 
-from markdown_filter import markdown_filter
+if __package__:
+    from .markdown_filter import markdown_filter
+else:
+    from markdown_filter import markdown_filter
 
 app = Flask(__name__)
 app.jinja_env.filters['markdown'] = markdown_filter
